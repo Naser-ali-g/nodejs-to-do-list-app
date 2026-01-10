@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps To-Do List</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> DevOps To-Do List</h1>
+            <p class="subtitle">GitOps Powered Task Manager with Redis</p>
+        </header>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <%= error %>
+            </div>
+        <% } %>
+
+        <!-- Add Todo Form -->
+        <div class="add-todo-section">
+            <form action="/add" method="POST" class="add-form">
+                <input 
+                    type="text" 
+                    name="task" 
+                    placeholder="Add a new task..." 
+                    required 
+                    autofocus
+                    maxlength="200"
+                >
+                <button type="submit" class="btn-add">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </form>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat-card">
+                <i class="fas fa-list"></i>
+                <div>
+                    <h3><%= todos.length %></h3>
+                    <p>Total Tasks</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <h3><%= todos.filter(t => t.completed).length %></h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h3><%= todos.filter(t => !t.completed).length %></h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Todo List -->
+        <div class="todo-list">
+            <% if (todos.length === 0) { %>
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No tasks yet!</h3>
+                    <p>Add your first task to get started</p>
+                </div>
+            <% } else { %>
+                <% todos.forEach(todo => { %>
+                    <div class="todo-item <%= todo.completed ? 'completed' : '' %>">
+                        <div class="todo-content">
+                            <form action="/toggle/<%= todo.id %>" method="POST" style="display: inline;">
+                                <button type="submit" class="btn-toggle">
+                                    <i class="<%= todo.completed ? 'fas fa-check-circle' : 'far fa-circle' %>"></i>
+                                </button>
+                            </form>
+                            
+                            <span class="todo-text" id="text-<%= todo.id %>">
+                                <%= todo.task %>
+                            </span>
+                            
+                            <input 
+                                type="text" 
+                                class="edit-input" 
+                                id="edit-<%= todo.id %>" 
+                                value="<%= todo.task %>" 
+                                style="display: none;"
+                            >
+                        </div>
+                        
+                        <div class="todo-actions">
+                            <button 
+                                class="btn-edit" 
+                                onclick="toggleEdit('<%= todo.id %>')"
+                                title="Edit task"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            
+                            <form action="/delete/<%= todo.id %>" method="POST" style="display: inline;">
+                                <button 
+                                    type="submit" 
+                                    class="btn-delete"
+                                    onclick="return confirm('Are you sure you want to delete this task?')"
+                                    title="Delete task"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <form action="/edit/<%= todo.id %>" method="POST" id="form-<%= todo.id %>" style="display: none;">
+                            <input type="hidden" name="task" id="hidden-<%= todo.id %>">
+                        </form>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+
+        <footer>
+            <p><i class="fas fa-rocket"></i> Powered by Kubernetes, ArgoCD & Redis</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleEdit(id) {
+            const textSpan = document.getElementById('text-' + id);
+            const editInput = document.getElementById('edit-' + id);
+            const editBtn = event.target.closest('.btn-edit');
+            
+            if (editInput.style.display === 'none') {
+                textSpan.style.display = 'none';
+                editInput.style.display = 'inline-block';
+                editInput.focus();
+                editInput.select();
+                editBtn.innerHTML = '<i class="fas fa-save"></i>';
+                editBtn.classList.add('saving');
+            } else {
+                const newTask = editInput.value.trim();
+                if (newTask) {
+                    document.getElementById('hidden-' + id).value = newTask;
+                    document.getElementById('form-' + id).submit();
+                } else {
+                    alert('Task cannot be empty!');
+                }
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.classList.contains('edit-input')) {
+                const id = e.target.id.replace('edit-', '');
+                toggleEdit(id);
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && e.target.classList.contains('edit-input')) {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+</html>
