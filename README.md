@@ -25,8 +25,6 @@ Perfect! Let me create a comprehensive, professional README.md for your GitHub r
 
 ---
 
-```bash
-cat > README.md << 'EOF'
 # 📝 Node.js To-Do Application with Kubernetes & AWS EKS
 
 A production-ready To-Do List application built with Node.js, Redis, Docker, Kubernetes, and deployed on AWS EKS using Terraform and GitOps principles.
@@ -109,7 +107,7 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 
 ### High-Level Architecture
 
-```
+```bash
 
 ┌─────────────────────────────────────────────────────────────┐
 │ AWS Cloud (Production) │
@@ -174,8 +172,7 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 
 ### CI/CD Pipeline Flow
 
-```
-
+```md
 ┌──────────────┐
 │ Developer │
 │ (git push) │
@@ -203,26 +200,28 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 │ Manual Deployment to EKS │
 │ (kubectl rollout restart) │
 └──────────────────────────────────────┘
-
-````
+```
 
 ---
 
 ## 🛠️ Technology Stack
 
 ### Backend
+
 - **Runtime**: Node.js 18.x
 - **Framework**: Express.js
 - **Database**: Redis 7.2 (in-memory data store)
 - **Template Engine**: EJS
 
 ### Frontend
+
 - **HTML5**: Semantic markup
 - **CSS3**: Custom styling with animations
 - **JavaScript**: Vanilla JS for interactivity
 - **Icons**: Font Awesome 6.0
 
 ### DevOps & Infrastructure
+
 - **Containerization**: Docker (multi-stage builds)
 - **Orchestration**: Kubernetes 1.28
 - **Cloud Provider**: AWS (EKS, VPC, EBS, ELB)
@@ -233,6 +232,7 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 - **Registry**: DockerHub
 
 ### Development Tools
+
 - **Version Control**: Git & GitHub
 - **Container Runtime**: Docker Engine
 - **CLI Tools**: kubectl, terraform, aws-cli, argocd
@@ -243,15 +243,15 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 
 ### Required Software
 
-| Tool | Version | Purpose |
-|------|---------|---------|
-| Node.js | 18.x+ | Application runtime |
-| Docker | 24.x+ | Containerization |
-| kubectl | 1.28+ | Kubernetes CLI |
-| Terraform | 1.6+ | Infrastructure provisioning |
-| AWS CLI | 2.x+ | AWS management |
-| Minikube | 1.32+ | Local Kubernetes |
-| Git | 2.x+ | Version control |
+| Tool      | Version | Purpose                     |
+| --------- | ------- | --------------------------- |
+| Node.js   | 18.x+   | Application runtime         |
+| Docker    | 24.x+   | Containerization            |
+| kubectl   | 1.28+   | Kubernetes CLI              |
+| Terraform | 1.6+    | Infrastructure provisioning |
+| AWS CLI   | 2.x+    | AWS management              |
+| Minikube  | 1.32+   | Local Kubernetes            |
+| Git       | 2.x+    | Version control             |
 
 ### AWS Requirements
 
@@ -293,7 +293,7 @@ kubectl apply -f k8s/deployment.yaml
 
 # 5. Access application
 minikube service nodejs-todo-app-service --url
-````
+```
 
 ### Option 2: Production Deployment (AWS EKS)
 
