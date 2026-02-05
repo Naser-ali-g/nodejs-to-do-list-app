@@ -25,7 +25,7 @@ Perfect! Let me create a comprehensive, professional README.md for your GitHub r
 
 ---
 
-```bash
+```
 
 # 📝 Node.js To-Do Application with Kubernetes & AWS EKS
 
