@@ -25,6 +25,11 @@ Perfect! Let me create a comprehensive, professional README.md for your GitHub r
 
 ---
 
+<<<<<<< HEAD
+=======
+```
+
+>>>>>>> d8fa6646cb591225d857a4ee3ce55e0373355706
 # 📝 Node.js To-Do Application with Kubernetes & AWS EKS
 
 A production-ready To-Do List application built with Node.js, Redis, Docker, Kubernetes, and deployed on AWS EKS using Terraform and GitOps principles.
@@ -105,6 +110,7 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 
 ## 🏗️ Architecture
 
+<<<<<<< HEAD
 ### High-Level Architecture
 
 ```bash
@@ -203,6 +209,8 @@ This project demonstrates a complete DevOps workflow for deploying a containeriz
 ```
 
 ---
+=======
+>>>>>>> d8fa6646cb591225d857a4ee3ce55e0373355706
 
 ## 🛠️ Technology Stack
 
